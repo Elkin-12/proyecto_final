@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<header class="elizacare-hero">
+    <div class="hero-container">
+        <h1 class="hero-title">Gestión Hospitalaria Ágil<br>para tu Bienestar y Salud</h1>
+        <p class="hero-subtitle">Agenda tus turnos fácilmente con los mejores especialistas de la región.<br>Acceso rápido a servicios médicos avanzados y atención prioritaria.</p>
+     <div class="container-fluid px-0">
+        <div class="hero-visual">
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="4000">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1920&q=80" class="d-block w-100" alt="Profesional de salud atendiendo a un paciente">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="{% static 'img/foto1.png' %}" class="d-block w-100">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="{% static 'img/foto2.png' %}" class="d-block w-100">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="{% static 'img/foto3.png' %}" class="d-block w-100">
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </div>
+        </div>
+        <div class="floating-cards-grid">
+
+            <div class="eliza-card card-white">
+                <div class="eliza-icon-box">
+                    <i class="fa-regular fa-calendar-check"></i>
+                </div>
+                <h3>Agendar Citas</h3>
+                <p>Encuentra y reserva turnos médicos de manera inteligente con el especialista que necesitas.</p>
+                <a href="{% url 'lista_citas' %}" class="card-overlay-link"></a>
+            </div>
+
+            <div class="eliza-card card-white">
+                <div class="eliza-icon-box">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                </div>
+                <h3>Control de Clientes</h3>
+                <p>Acceso inmediato al registro de pacientes, historias clínicas digitales y contactos de emergencia.</p>
+                <a href="{% url 'lista_clientes' %}" class="card-overlay-link"></a>
+            </div>
+
+            <div class="eliza-card card-white">
+                <div class="eliza-icon-box">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+                <h3>Personal Médico</h3>
+                <p>Consulta el cuerpo de médicos activos, sus especialidades asignadas y horarios de atención.</p>
+                <a href="{% url 'lista_medicos' %}" class="card-overlay-link"></a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+{% endblock %}

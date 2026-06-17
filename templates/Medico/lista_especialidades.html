@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container py-5">
+    
+    <div class="mb-5">
+        <h2 class="section-title mb-1" style="font-family: 'Merriweather', serif; font-weight: 700; color: #1e3a8a;">Especialidades Médicas</h2>
+        <p class="text-muted mb-0">Gestiona las ramas y disciplinas médicas del personal especialista</p>
+    </div>
+    
+    <div class="row g-4">
+        
+        <div class="col-12 col-lg-5">
+            <div class="card border-0 shadow-lg p-4 bg-white position-relative overflow-hidden" 
+                 style="border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.03) !important;">
+                
+                <div class="position-absolute top-0 start-0 end-0" style="height: 5px; background: linear-gradient(90deg, #0d6efd, #ec4899);"></div>
+                
+                <h4 class="fw-bold text-dark mb-3 mt-2" style="font-family: 'Merriweather', serif;">Registrar Especialidad</h4>
+                <p class="text-muted small mb-4">Ingresa una nueva especialidad para que los médicos la puedan seleccionar al ser registrados.</p>
+                
+                <form method="POST" action="{% url 'registrar_especialidad' %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="id_nombre" class="form-label fw-bold text-dark small mb-2">Nombre de la Especialidad</label>
+                        <div class="input-group input-group-custom">
+                            <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-graduation-cap"></i></span>
+                            <input type="text" name="nombre" id="id_nombre" class="form-control border-start-0 ps-2" placeholder="Ej. Dermatología, Ginecología..." required 
+                                   style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center shadow-sm btn-submit-premium" 
+                            style="border-radius: 14px;  background: linear-gradient(135deg, #2563eb, #0d9488); border: none; height: 48px; font-size: 0.95rem; transition: all 0.3s ease;">
+                        <i class="fa-solid fa-plus-circle me-2"></i> Crear Especialidad
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Listado de especialidades existentes (Derecha) -->
+        <div class="col-12 col-lg-7">
+            <div class="card border-0 shadow-sm p-4 bg-white" style="border-radius: 20px; border: 1px solid rgba(226, 232, 240, 0.8) !important;">
+                <h4 class="fw-bold text-dark mb-4" style="font-family: 'Merriweather', serif;">Especialidades Activas</h4>
+                
+                <div class="row g-3">
+                    {% for esp in especialidades %}
+                    <div class="col-12 col-sm-6">
+                        <div class="d-flex align-items-center p-3 rounded-4 border" style="background-color: #f8fafc; border-color: #e2e8f0 !important; transition: all 0.2s ease;">
+                            <div class="rounded-3 bg-light text-primary d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px; background-color: #eff6ff !important; font-size: 1.25rem;">
+                                <i class="fa-solid fa-award text-success"></i>
+                            </div>
+                            <div class="text-truncate">
+                                <strong class="text-dark d-block" style="font-size: 1rem;">{{ esp.nombre }}</strong>
+                                <span class="text-muted small">ID: #{{ esp.id }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center py-4">
+                        <div class="text-muted">
+                            <i class="fa-solid fa-circle-info fs-3 d-block mb-2 text-black-50"></i>
+                            No hay especialidades registradas. Utiliza el formulario de la izquierda para registrar la primera.
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rounded-4:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        background-color: #ffffff !important;
+        border-color: #cbd5e1 !important;
+    }
+</style>
+{% endblock %}

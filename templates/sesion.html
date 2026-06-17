@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/logo.svg' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/estilo2.css' %}?v=5.1">
+    <title>Ingreso — Hospital Central</title>
+</head>
+<body class="login-page">
+    <div class="login-layout">
+        <aside class="login-hero" aria-hidden="true">
+            <div class="login-hero__slides">
+                
+                <div class="login-hero__slide active" style="background-image: url('{% static 'img/hospital_entrance.png' %}');">
+                    <div class="login-hero__overlay"></div>
+                    <div class="login-hero__content">
+                        <div class="login-hero__badge">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <span>Portal Médico</span>
+                        </div>
+                        <h1 class="login-hero__title">Hospital Central</h1>
+                        <p class="login-hero__text">
+                            Gestiona pacientes, médicos y citas desde un solo portal seguro e intuitivo.
+                        </p>
+                        <ul class="login-hero__features">
+                            <li><i class="fa-solid fa-user-doctor"></i> Médicos y especialidades</li>
+                            <li><i class="fa-solid fa-calendar-check"></i> Citas y servicios</li>
+                            <li><i class="fa-solid fa-hospital-user"></i> Registro de pacientes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="login-hero__slide" style="background-image: url('{% static 'img/therapy_session.png' %}');">
+                    <div class="login-hero__overlay"></div>
+                    <div class="login-hero__content">
+                        <div class="login-hero__badge">
+                            <i class="fa-solid fa-laptop-medical"></i>
+                            <span>Gestión Moderna</span>
+                        </div>
+                        <h1 class="login-hero__title">Atención de Excelencia</h1>
+                        <p class="login-hero__text">
+                            Simplificamos los procesos administrativos para que te concentres en el cuidado de tus pacientes.
+                        </p>
+                        <ul class="login-hero__features">
+                            <li><i class="fa-solid fa-file-medical"></i> Expediente Clínico Digital</li>
+                            <li><i class="fa-solid fa-clock"></i> Programación eficiente</li>
+                            <li><i class="fa-solid fa-shield-halved"></i> Seguridad de la información</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-hero__dots">
+                <span class="dot active" title="Diapositiva 1"></span>
+                <span class="dot" title="Diapositiva 2"></span>
+            </div>
+
+            <div class="login-hero__icons">
+                <span class="hero-icon hero-icon--1"><i class="fa-solid fa-stethoscope"></i></span>
+                <span class="hero-icon hero-icon--2"><i class="fa-solid fa-notes-medical"></i></span>
+                <span class="hero-icon hero-icon--3"><i class="fa-solid fa-pills"></i></span>
+            </div>
+        </aside>
+
+        <main class="login-main">
+            <header class="login-brand">
+                <img src="{% static 'img/logo.svg' %}" alt="Logo Hospital Central" width="48" height="48">
+                <div class="login-brand__text">
+                    <span class="login-brand__name">Gestor<strong>Cita</strong></span>
+                    <span class="login-brand__sub">Hospital Central</span>
+                </div>
+            </header>
+
+            <section class="login-card">
+                <h2>Iniciar sesión</h2>
+                <p class="login-card__hint">Ingresa tus credenciales para acceder al panel.</p>
+
+                <form class="login-form" action="{% url 'home' %}" method="post">
+                    {% csrf_token %}
+                    
+                    <label class="field">
+                        <span class="field__label">Usuario</span>
+                        <span class="field__wrap">
+                            <i class="fa-regular fa-user field__icon"></i>
+                            <input type="text" name="username" placeholder="Tu usuario" autocomplete="username" required>
+                        </span>
+                    </label>
+
+                    <label class="field">
+                        <span class="field__label">Contraseña</span>
+                        <span class="field__wrap">
+                            <i class="fa-solid fa-lock field__icon"></i>
+                            <input type="password" name="password" placeholder="Tu contraseña" autocomplete="current-password" required>
+                        </span>
+                    </label>
+
+                    <label class="checkbox-row">
+                        <input type="checkbox" id="robot" required>
+                        <span>Confirmo que no soy un robot</span>
+                    </label>
+
+                    <label class="checkbox-row">
+                        <input type="checkbox" id="terms" required>
+                        <span>Acepto los <a href="#">términos y condiciones</a></span>
+                    </label>
+
+                    <button type="submit" class="btn-login">Ingresar</button>
+                    <a href="#" class="login-forgot">¿Olvidaste tu contraseña?</a>
+                </form>
+            </section>
+
+            <p class="login-footer">&copy; Hospital Central — Gestión de salud</p>
+        </main>
+    </div>
+
+    <script src="{% static 'js/scripts.js' %}?v=1.0"></script> 
+</body>
+</html>

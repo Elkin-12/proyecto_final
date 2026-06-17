@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            
+            <div class="card border-0 shadow-lg p-4 p-sm-5 bg-white position-relative overflow-hidden" 
+                 style="border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.04) !important;">
+                
+                <div class="position-absolute top-0 start-0 end-0" style="height: 6px; background: linear-gradient(90deg, #0d6efd, #6ea8fe);"></div>
+                
+                <div class="text-center mb-5 mt-2">
+                    <h2 class="fw-extrabold text-dark mb-2" style="letter-spacing: -1px; font-weight: 800;">Gestión de Especialistas</h2>
+                    <p class="text-muted small mx-auto" style="max-width: 80%;">Integra un nuevo profesional médico con credenciales activas en el ecosistema hospitalario.</p>
+                </div>
+
+                <form method="POST" action="/medicos/registrar/">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="id_nombre" class="form-label fw-bold text-dark small mb-2">Nombre Completo</label>
+                        <div class="input-group input-group-custom">
+                            <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="bi bi-person-fill"></i></span>
+                            <input type="text" name="nombre" id="id_nombre" class="form-control border-start-0 ps-2" placeholder="Ej. Juan" required 
+                                   style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="id_apellido" class="form-label fw-bold text-dark small mb-2">Apellidos</label>
+                        <div class="input-group input-group-custom">
+                            <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="bi bi-person-bounding-box"></i></span>
+                            <input type="text" name="apellido" id="id_apellido" class="form-control border-start-0 ps-2" placeholder="Ej. Arenas" required 
+                                   style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="id_especialidad" class="form-label fw-bold text-dark small mb-2 d-flex justify-content-between align-items-center">
+                            <span>Asignar Rama Médica</span>
+                            <span class="badge bg-light text-primary border fw-normal" style="font-size: 0.75rem;">Ctrl + Click para multi-selección</span>
+                        </label>
+                        <div class="input-group input-group-custom">
+                            <span class="input-group-text border-end-0 bg-transparent text-muted px-3 align-items-start pt-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="bi bi-heart-pulse-fill text-danger-emphasis"></i></span>
+                            <select name="especialidad" id="id_especialidad" class="form-select border-start-0 ps-2" multiple size="4" required 
+                                    style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; font-size: 0.95rem; background-color: #f8fafc; min-height: 120px;">
+                                {% for esp in especialidades %}
+                                    <option value="{{ esp.id }}" class="py-2 px-3 my-1 rounded-3 custom-option">{{ esp.nombre }}</option>
+                                {% empty %}
+                                    <option disabled class="text-muted p-3">No hay especialidades cargadas en el sistema</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 pt-3 border-top border-light">
+                        <div class="col-sm-7 order-sm-2">
+                            <button type="submit" class="btn btn-primary w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center shadow-sm btn-submit-premium" 
+                                    style="border-radius: 14px; background: #0d6efd; border: none; height: 48px; font-size: 0.95rem; transition: all 0.3s ease;">
+                                <i class="bi bi-check-circle-fill me-2"></i> Confirmar Registro
+                            </button>
+                        </div>
+                        <div class="col-sm-5 order-sm-1">
+                            <a href="/medicos/lista/" class="btn btn-light w-100 py-2.5 fw-semibold text-secondary d-flex align-items-center justify-content-center btn-cancel-premium" 
+                               style="border-radius: 14px; border: 1px solid #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #ffffff; transition: all 0.3s ease;">
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

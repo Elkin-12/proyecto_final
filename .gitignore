@@ -1,0 +1,9 @@
+# Entorno virtual
+venv/
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+
+# Base de datos local (por si no quieres subir tus datos de prueba a GitHub)
+db.sqlite3

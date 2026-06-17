@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+<div class="container py-5">
+
+    <div class="medicos-header d-flex flex-column flex-sm-row justify-content-between align-items-sm-end mb-5 gap-4">
+        <div>
+            <h2 class="section-title mb-2">Nuestro Equipo Médico</h2>
+            <p class="text-muted mb-0 mt-3" style="font-size: 1.1rem;">Conoce a los profesionales de la salud que cuidan de ti.</p>
+        </div>
+        <a href="{% url 'registrar_medico' %}" class="btn btn-premium d-flex align-items-center">
+            <i class="fa-solid fa-user-doctor me-2 fs-5"></i> Registrar Médico
+        </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+        {% for medico in medicos %}
+        <div class="col">
+            <div class="doctor-card">
+                <div class="card-img-wrapper">
+                    <div class="doctor-avatar">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                </div>
+
+                <div class="doctor-card-body">
+                    <h5 class="doctor-name">
+                        Dr. {{ medico.nombre }} {{ medico.apellido }}
+                    </h5>
+                    <div class="doctor-id"><i class="fa-solid fa-fingerprint me-1"></i> ID: {{ medico.id }}</div>
+
+                    <div class="specialties-container">
+                        {% for esp in medico.especialidad.all %}
+                            <span class="specialty-badge">
+                                {{ esp.nombre }}
+                            </span>
+                        {% empty %}
+                            <span class="specialty-badge" style="background: #f1f5f9; color: #64748b; border-color: #e2e8f0;">
+                                <i class="fa-solid fa-stethoscope me-1"></i> General
+                            </span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="card-actions">
+                        <form action="{% url 'eliminar_medico' medico.id %}" method="post" class="w-100" onsubmit="return confirm('¿Estás seguro de que deseas eliminar al médico Dr(a). {{ medico.nombre }} {{ medico.apellido }}?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-outline-danger w-100 py-2" style="border-radius: 10px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">
+                                <i class="fa-solid fa-trash-can me-2"></i> Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="empty-state">
+                <i class="fa-solid fa-user-doctor empty-icon"></i>
+                <h3 class="text-dark fw-bold mb-3" style="font-family: 'DM Sans', sans-serif;">No hay médicos registrados</h3>
+                <p class="text-muted mb-4 fs-5">Aún no se ha añadido ningún profesional médico al sistema.</p>
+                <a href="{% url 'registrar_medico' %}" class="btn btn-premium d-inline-flex align-items-center px-4 py-2">
+                    <i class="fa-solid fa-plus me-2"></i> Comenzar a registrar
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

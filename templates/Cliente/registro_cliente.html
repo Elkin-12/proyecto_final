@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+            
+            <div class="card border-0 shadow-lg p-4 p-sm-5 bg-white position-relative overflow-hidden" 
+                 style="border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.04) !important;">
+                
+                <div class="position-absolute top-0 start-0 end-0" style="height: 6px; background: linear-gradient(90deg, #0d6efd, #06b6d4);"></div>
+                
+                <div class="text-center mb-5 mt-2">
+                    <h2 class="fw-extrabold text-dark mb-2" style="letter-spacing: -1px; font-weight: 800; font-family: 'Merriweather', serif;">Registro de Pacientes</h2>
+                    <p class="text-muted small mx-auto" style="max-width: 85%;">Ingresa la información básica del paciente para abrir su expediente en el hospital.</p>
+                </div>
+
+                <form method="POST" action="{% url 'registrar_cliente' %}">
+                    {% csrf_token %}
+                    
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label for="id_nombre" class="form-label fw-bold text-dark small mb-2">Nombre</label>
+                            <div class="input-group input-group-custom">
+                                <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-user"></i></span>
+                                <input type="text" name="nombre" id="id_nombre" class="form-control border-start-0 ps-2" placeholder="Ej. Carlos" required 
+                                       style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label for="id_apellido" class="form-label fw-bold text-dark small mb-2">Apellido</label>
+                            <div class="input-group input-group-custom">
+                                <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-user-tag"></i></span>
+                                <input type="text" name="apellido" id="id_apellido" class="form-control border-start-0 ps-2" placeholder="Ej. Mendoza" required 
+                                       style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label for="id_tipo_documento" class="form-label fw-bold text-dark small mb-2">Tipo de Documento</label>
+                            <div class="input-group input-group-custom">
+                                <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-id-card"></i></span>
+                                <select name="tipo_documento" id="id_tipo_documento" class="form-select border-start-0 ps-2" required
+                                        style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                                    {% for code, label in tipos_doc %}
+                                        <option value="{{ code }}">{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label for="id_numero_documento" class="form-label fw-bold text-dark small mb-2">Número de Documento</label>
+                            <div class="input-group input-group-custom">
+                                <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-hashtag"></i></span>
+                                <input type="text" name="numero_documento" id="id_numero_documento" class="form-control border-start-0 ps-2" placeholder="Ej. 10203040" required 
+                                       style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="id_email" class="form-label fw-bold text-dark small mb-2">Correo Electrónico</label>
+                        <div class="input-group input-group-custom">
+                            <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-envelope"></i></span>
+                            <input type="email" name="email" id="id_email" class="form-control border-start-0 ps-2" placeholder="nombre@correo.com" required 
+                                   style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="id_telefono" class="form-label fw-bold text-dark small mb-2">Número de Teléfono</label>
+                        <div class="input-group input-group-custom">
+                            <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-phone"></i></span>
+                            <input type="text" name="telefono" id="id_telefono" class="form-control border-start-0 ps-2" placeholder="Ej. 3001234567" required 
+                                   style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="id_direccion" class="form-label fw-bold text-dark small mb-2">Dirección de Residencia</label>
+                        <div class="input-group input-group-custom">
+                            <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-location-dot"></i></span>
+                            <input type="text" name="direccion" id="id_direccion" class="form-control border-start-0 ps-2" placeholder="Calle 123 #45-67" required 
+                                   style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                        </div>
+                    </div>
+
+                    <div class="row g-3 pt-3 border-top border-light">
+                        <div class="col-sm-7 order-sm-2">
+                            <button type="submit" class="btn btn-primary w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center shadow-sm btn-submit-premium" 
+                                    style="border-radius: 14px; background: #0d6efd; border: none; height: 48px; font-size: 0.95rem; transition: all 0.3s ease;">
+                                <i class="fa-solid fa-floppy-disk me-2"></i> Registrar Paciente
+                            </button>
+                        </div>
+                        <div class="col-sm-5 order-sm-1">
+                            <a href="{% url 'lista_clientes' %}" class="btn btn-light w-100 py-2.5 fw-semibold text-secondary d-flex align-items-center justify-content-center btn-cancel-premium" 
+                               style="border-radius: 14px; border: 1px solid #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #ffffff; transition: all 0.3s ease;">
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

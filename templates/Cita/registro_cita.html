@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+            
+            <div class="card border-0 shadow-lg p-4 p-sm-5 bg-white position-relative overflow-hidden" 
+                 style="border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.04) !important;">
+                
+                <!-- Barra superior de acento médico -->
+                <div class="position-absolute top-0 start-0 end-0" style="height: 6px; background: linear-gradient(90deg, #0d6efd, #10b981);"></div>
+                
+                <div class="text-center mb-5 mt-2">
+                    <h2 class="fw-extrabold text-dark mb-2" style="letter-spacing: -1px; font-weight: 800; font-family: 'Merriweather', serif;">Programación de Citas</h2>
+                    <p class="text-muted small mx-auto" style="max-width: 85%;">Registra un nuevo turno asignando un paciente, un médico y el servicio de salud correspondiente.</p>
+                </div>
+
+                <form method="POST" action="{% url 'registrar_cita' %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="id_cliente" class="form-label fw-bold text-dark small mb-2">Paciente / Cliente</label>
+                        <div class="input-group input-group-custom">
+                            <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-hospital-user text-primary"></i></span>
+                            <select name="cliente" id="id_cliente" class="form-select border-start-0 ps-2" required
+                                    style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                                <option value="" disabled selected>-- Seleccione el paciente --</option>
+                                {% for cliente in clientes %}
+                                    <option value="{{ cliente.id }}" {% if request.GET.cliente_id|add:"0" == cliente.id %}selected{% endif %}>
+                                        {{ cliente.nombre }} {{ cliente.apellido }} (Doc: {{ cliente.numero_documento }})
+                                    </option>
+                                {% empty %}
+                                    <option disabled>No hay pacientes registrados en el sistema</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% if not clientes %}
+                            <div class="form-text text-danger small mt-1">
+                                <i class="fa-solid fa-circle-exclamation me-1"></i> Debe registrar un paciente primero. <a href="{% url 'registrar_cliente' %}" class="fw-bold text-primary">Registrar aquí</a>.
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="id_medico" class="form-label fw-bold text-dark small mb-2">Médico Especialista</label>
+                        <div class="input-group input-group-custom">
+                            <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-user-doctor text-success"></i></span>
+                            <select name="medico" id="id_medico" class="form-select border-start-0 ps-2" required
+                                    style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                                <option value="" disabled selected>-- Seleccione el especialista --</option>
+                                {% for medico in medicos %}
+                                    <option value="{{ medico.id }}">
+                                        Dr(a). {{ medico.nombre }} {{ medico.apellido }}
+                                    </option>
+                                {% empty %}
+                                    <option disabled>No hay médicos registrados en el sistema</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% if not medicos %}
+                            <div class="form-text text-danger small mt-1">
+                                <i class="fa-solid fa-circle-exclamation me-1"></i> Debe registrar un médico primero. <a href="{% url 'registrar_medico' %}" class="fw-bold text-primary">Registrar aquí</a>.
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="id_servicio" class="form-label fw-bold text-dark small mb-2">Servicio Solicitado</label>
+                        <div class="input-group input-group-custom">
+                            <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-notes-medical text-info"></i></span>
+                            <select name="servicio" id="id_servicio" class="form-select border-start-0 ps-2" required
+                                    style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                                <option value="" disabled selected>-- Seleccione el servicio --</option>
+                                {% for servicio in servicios %}
+                                    <option value="{{ servicio.id }}">
+                                        {{ servicio.nombre }}
+                                    </option>
+                                {% empty %}
+                                    <option disabled>No hay servicios registrados en el sistema (Créelos en Admin)</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label for="id_fecha_hora" class="form-label fw-bold text-dark small mb-2">Fecha y Hora</label>
+                            <div class="input-group input-group-custom">
+                                <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-regular fa-calendar-check text-warning"></i></span>
+                                <input type="datetime-local" name="fecha_hora" id="id_fecha_hora" class="form-control border-start-0 ps-2" required 
+                                       style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label for="id_estado" class="form-label fw-bold text-dark small mb-2">Estado Inicial</label>
+                            <div class="input-group input-group-custom">
+                                <span class="input-group-text border-end-0 bg-transparent text-muted px-3" style="border-radius: 12px 0 0 12px; border-color: #e2e8f0;"><i class="fa-solid fa-spinner"></i></span>
+                                <select name="estado" id="id_estado" class="form-select border-start-0 ps-2" required
+                                        style="border-radius: 0 12px 12px 0; border-color: #e2e8f0; height: 48px; font-size: 0.95rem; background-color: #f8fafc;">
+                                    {% for code, label in estados %}
+                                        <option value="{{ code }}" {% if code == 'PENDIENTE' %}selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 pt-3 border-top border-light">
+                        <div class="col-sm-7 order-sm-2">
+                            <button type="submit" class="btn btn-primary w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center shadow-sm btn-submit-premium" 
+                                    style="border-radius: 14px; background: #0d6efd; border: none; height: 48px; font-size: 0.95rem; transition: all 0.3s ease;">
+                                <i class="fa-regular fa-calendar-check me-2"></i> Agendar Cita
+                            </button>
+                        </div>
+                        <div class="col-sm-5 order-sm-1">
+                            <a href="{% url 'lista_citas' %}" class="btn btn-light w-100 py-2.5 fw-semibold text-secondary d-flex align-items-center justify-content-center btn-cancel-premium" 
+                               style="border-radius: 14px; border: 1px solid #090a0a; height: 48px; font-size: 0.95rem; background-color: #fdfafa; transition: all 0.3s ease;">
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
