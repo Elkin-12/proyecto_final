@@ -42,13 +42,20 @@
                         {% endfor %}
                     </div>
 
-                    <div class="card-actions">
-                        <form action="{% url 'eliminar_medico' medico.id %}" method="post" class="w-100" onsubmit="return confirm('¿Estás seguro de que deseas eliminar al médico Dr(a). {{ medico.nombre }} {{ medico.apellido }}?');">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-outline-danger w-100 py-2" style="border-radius: 10px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">
-                                <i class="fa-solid fa-trash-can me-2"></i> Eliminar
-                            </button>
-                        </form>
+                  <div class="card-actions px-3 pb-3">
+                        <div class="d-flex align-items-center gap-2 w-100">
+                            <form action="{% url 'eliminar_medico' medico.id %}" method="post" class="flex-grow-1 m-0" onsubmit="return confirm('¿Estás seguro de que deseas eliminar al médico Dr(a). {{ medico.nombre }} {{ medico.apellido }}?');">
+                               {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger w-100 py-2 align-items-center justify-content-center" style="border-radius: 10px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; height: 40px;">
+                                 <i class="fa-solid fa-trash-can me-2"></i> Eliminar
+                             </button>
+                            </form>
+                            <a href="{% url 'editar_medico' medico.id %}"class="btn btn-sm btn-outline-primary py-2 px-3 d-flex align-items-center justify-content-center" 
+                              style="border-radius: 10px; transition: all 0.3s ease; height: 40px; min-width: 44px;" title="Editar Información">
+                                  <i class="fa-solid fa-pen-to-square"></i>
+                             </a>
+                         
+                      </div>
                     </div>
                 </div>
             </div>

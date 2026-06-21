@@ -8,19 +8,15 @@
             <div class="card border-0 shadow-lg p-4 p-sm-5 bg-white position-relative overflow-hidden" 
                  style="border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.04) !important;">
                 
-                <div class="position-absolute top-0 start-0 end-0" style="height: 6px; background: linear-gradient(90deg, #0d6efd, #06b6d4);"></div>
+                <div class="position-absolute top-0 start-0 end-0" style="height: 6px; background: linear-gradient(90deg, #ffc107, #f97316);"></div>
                 
                 <div class="text-center mb-4 mt-2">
-                    <h2 class="fw-extrabold text-dark mb-2" style="letter-spacing: -1px; font-weight: 800; font-family: 'Merriweather', serif;">Registro de Pacientes</h2>
-                    <p class="text-muted small mx-auto" style="max-width: 85%;">Ingresa la información básica del paciente para abrir su expediente en el hospital.</p>
+                    <h2 class="fw-extrabold text-dark mb-2" style="letter-spacing: -1px; font-weight: 800; font-family: 'Merriweather', serif;">Editar Expediente</h2>
+                    <p class="text-muted small mx-auto" style="max-width: 85%;">Modifica los datos del paciente <strong>{{ cliente.nombre }} {{ cliente.apellido }}</strong>.</p>
                 </div>
 
                 <form method="POST">
                     {% csrf_token %}
-                    
-                    {% if form.non_field_errors %}
-                        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
-                    {% endif %}
                     
                     {% for field in form %}
                         <div class="mb-3">
@@ -36,9 +32,9 @@
 
                     <div class="row g-3 pt-3 border-top border-light mt-4">
                         <div class="col-sm-7 order-sm-2">
-                            <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold d-flex align-items-center justify-content-center shadow-sm" 
-                                    style="border-radius: 14px; background: #0d6efd; border: none; height: 44px;">
-                                <i class="fa-solid fa-floppy-disk me-2"></i> Registrar Paciente
+                            <button type="submit" class="btn btn-warning text-dark w-100 py-2 fw-semibold d-flex align-items-center justify-content-center shadow-sm" 
+                                    style="border-radius: 14px; background: #ffc107; border: none; height: 44px;">
+                                <i class="fa-solid fa-floppy-disk me-2"></i> Actualizar Cambios
                             </button>
                         </div>
                         <div class="col-sm-5 order-sm-1">
