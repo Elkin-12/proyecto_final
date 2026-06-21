@@ -41,3 +41,20 @@ def eliminar_cliente(request, cliente_id):
         except ProtectedError:
             messages.error(request, f"No se puede eliminar al paciente '{cliente.nombre} {cliente.apellido}' porque tiene citas médicas registradas en el sistema.")
     return redirect('lista_clientes')
+
+def editar_cliente(request, cliente_id):
+    cliente = get_object_or_404(Cliente, id=cliente_id)
+    
+    if request.method == 'POST':
+        cliente.nombre = request.POST.get('nombre')
+        cliente.apellido = request.POST.get('apellido')
+        cliente.tipo_documento = request.POST.get('tipo_documento')
+        cliente.numero_documento = request.POST.get('numero_documento')
+        cliente.email = request.POST.get('email')
+        cliente.telefono = request.POST.get('telefono')
+        cliente.direccion = request.POST.get('direccion')
+        cliente.save()
+        return redirect('lista_clientes')
+    
+    tipos_doc = Cliente._meta.get_field('tipo_documento').choices
+    return render(request, 'Cliente/editar_cliente.html', {'cliente': cliente, 'tipos_doc': tipos_doc})

@@ -53,9 +53,12 @@
                     <div class="d-flex gap-2 pt-2">
                         <a href="{% url 'registrar_cita' %}?cliente_id={{ cliente.id }}" class="btn btn-sm btn-custom w-100 py-2" style="border-radius: 8px; display: flex; align-items: center; justify-content: center;">Nueva Cita
                         </a>
+                        <a href="{% url 'editar_cliente' cliente.id %}" class="btn btn-sm btn-outline-primary py-2 px-3" style="border-radius: 8px; display: flex; align-items: center; justify-content: center;" title="Editar Información">
+                          <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
                         <form action="{% url 'eliminar_cliente' cliente.id %}" method="post" class="d-inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar al paciente {{ cliente.nombre }} {{ cliente.apellido }}?');">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-outline-danger py-2 px-3" style="border-radius: 8px;" title="Eliminar Paciente">
+                            <button type    ="submit" class="btn btn-sm btn-outline-danger py-2 px-3" style="border-radius: 8px;" title="Eliminar Paciente">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </form>
