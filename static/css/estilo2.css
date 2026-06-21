@@ -294,16 +294,8 @@
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
-.checkbox-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Envía el "Olvidaste tu contraseña" a la derecha */
-    font-size: 0.85rem;
-    color: var(--login-muted);
-}
-
 .checkbox-label {
-    display: flex;
+    display: flex;  
     align-items: center;
     gap: 8px;
     cursor: pointer;
